@@ -1,9 +1,7 @@
 
-
-
 class Game:
-    def __init__(self, word):
-        self.num_guesses = 7
+    def __init__(self, word, num_guesses):
+        self.num_guesses = num_guesses
         self.word = word
         self.word_lst = []
         self.guessed_letters = []
@@ -49,7 +47,7 @@ class Game:
                 self.is_game_over()
 
 
-game = Game("code")
+game = Game("code", 7)
 game.play()
 
 
