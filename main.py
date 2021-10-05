@@ -1,43 +1,59 @@
 
-num_guesses = 7
-word = "education"
-word_lst = ['e', 'd', 'u', 'c', 'a', 't', 'i', 'o', 'n']
-guessed_letters = ['e']
-current_progress = []
-have_won = False
+
 
 class Game:
-    pass
+    def __init__(self, word):
+        self.num_guesses = 7
+        self.word = word
+        self.word_lst = []
+        self.guessed_letters = []
+        self.current_progress = []
+        self.have_won = False
 
-def progress():
-    current_progress.clear()
-    for letter in word_lst:
-        if letter in guessed_letters:
-            current_progress.append(letter)
-        else:
-            current_progress.append("_")
-    print(" ".join(current_progress))
+    def split_word(self):
+        self.word_lst = list(self.word)
 
-def is_game_over():
-    if word_lst.sort() == current_progress.sort():
-        have_won = True
+    def progress(self):
+        self.current_progress.clear()
+        for letter in self.word_lst:
+            if letter in self.guessed_letters:
+                self.current_progress.append(letter)
+            else:
+                self.current_progress.append("_")
+        print(" ".join(self.current_progress))
 
-while(num_guesses > 0 and haveWon == False):
-    round_guess = input("What is your guess: ")
-    print('round guess', round_guess)
-    if round_guess in guessed_letters:
-        print("You have already guessed that letter")
-        progress()
-    elif round_guess not in guessed_letters and round_guess in word_lst:
-        guessed_letters.append(round_guess)
-        progress()
-    elif round_guess not in guessed_letters and round_guess not in word_lst:
-        print("That letter is incorrect")
-        num_guesses -= 1
-        progress()
+    def is_game_over(self):
+        if self.num_guesses == 0:
+            print("YOU RAN OUT OF GUESSES")
+        elif sorted(self.word_lst) == sorted(self.current_progress):
+            print("You have won!!!! Congratulations")
+            self.have_won = True
+
+    def play(self):
+        self.split_word()
+        while(self.num_guesses > 0 and self.have_won == False):
+            round_guess = input("What is your guess: ")
+            print('round guess', round_guess)
+            if round_guess in self.guessed_letters:
+                print("You have already guessed that letter")
+                self.progress()
+                self.is_game_over()
+            elif round_guess not in self.guessed_letters and round_guess in self.word_lst:
+                self.guessed_letters.append(round_guess)
+                self.progress()
+                self.is_game_over()
+            elif round_guess not in self.guessed_letters and round_guess not in self.word_lst:
+                print("That letter is incorrect")
+                self.num_guesses -= 1
+                self.progress()
+                self.is_game_over()
 
 
-if num_guesses == 0:
-    print("YOU RAN OUT OF GUESSES")
-elif is_game_over == True:
-    print("YOU HAVE WON THE GAME")
+game = Game("code")
+game.play()
+
+
+
+
+# elif is_game_over == True:
+#     print("YOU HAVE WON THE GAME")
